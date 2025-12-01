@@ -1,34 +1,39 @@
-Overview
+JDBC
 
-Direct SQL execution from Java using the JDBC API. Implements connection handling, statement execution, CRUD operations, and scroll-based result navigation.
+──────────────────────────────────────────
+[== OVERVIEW ==]
+Direct SQL execution from Java using the JDBC API. Provides connection handling, statement execution, CRUD operations, and scroll-oriented result navigation.
 
-Features
+──────────────────────────────────────────
+[== FEATURES ==]
+▣ CRUD operations
+▣ Prepared statements
+▣ Scroll-insensitive and scroll-sensitive navigation
+▣ Auto-commit control
+▣ Exception diagnostics
 
-• CRUD operations
-• Prepared statements
-• Scroll-insensitive and scroll-sensitive navigation
-• Auto-commit control
-• Basic exception diagnostics
+──────────────────────────────────────────
+[== REQUIREMENTS ==]
+▣ Java 8+
+▣ MySQL 8.x
+▣ MySQL Connector/J
 
-Requirements
+──────────────────────────────────────────
+[== SETUP ==]
 
-• Java 8+
-• MySQL 8.x
-• MySQL Connector/J
+Install MySQL
 
-Setup
+Create schema demo
 
-Install MySQL.
+Create required tables
 
-Create schema demo.
+Add MySQL Connector/J to classpath
 
-Create required tables.
+Compile and run Java sources
 
-Add MySQL Connector/J to the classpath.
+──────────────────────────────────────────
+[== CONNECTION TEMPLATE ==]
 
-Compile and run the Java sources.
-
-Connection Template
 Class.forName("com.mysql.cj.jdbc.Driver");
 Connection con = DriverManager.getConnection(
     "jdbc:mysql://localhost:3306/demo",
@@ -36,29 +41,42 @@ Connection con = DriverManager.getConnection(
     "password"
 );
 
-Basic Query
+
+──────────────────────────────────────────
+[== BASIC QUERY ==]
+
 Statement st = con.createStatement();
 ResultSet rs = st.executeQuery("SELECT * FROM students");
+
 while (rs.next()) {
     int id = rs.getInt("id");
     String name = rs.getString("stdname");
 }
 
-Insert (PreparedStatement)
+
+──────────────────────────────────────────
+[== INSERT (PREPARED STATEMENT) ==]
+
 String q = "INSERT INTO students(id, stdname) VALUES (?, ?)";
 PreparedStatement ps = con.prepareStatement(q);
 ps.setInt(1, 1);
 ps.setString(2, "Adarsh");
 ps.executeUpdate();
 
-Update
+
+──────────────────────────────────────────
+[== UPDATE ==]
+
 String q = "UPDATE students SET stdname=? WHERE id=?";
 PreparedStatement ps = con.prepareStatement(q);
 ps.setString(1, "NewName");
 ps.setInt(2, 1);
 ps.executeUpdate();
 
-Scroll Navigation
+
+──────────────────────────────────────────
+[== SCROLL NAVIGATION ==]
+
 Statement st = con.createStatement(
     ResultSet.TYPE_SCROLL_INSENSITIVE,
     ResultSet.CONCUR_READ_ONLY
@@ -70,13 +88,16 @@ rs.last();
 rs.first();
 rs.absolute(2);
 
-Exception Notes
 
-• Type mismatches → SQLDataException
-• Wrong table names → SQLSyntaxErrorException
-• Missing driver → ClassNotFoundException
+──────────────────────────────────────────
+[== EXCEPTION NOTES ==]
+▣ Type mismatch → SQLDataException
+▣ Invalid table name → SQLSyntaxErrorException
+▣ Driver missing → ClassNotFoundException
 
-Directory Structure
+──────────────────────────────────────────
+[== DIRECTORY STRUCTURE ==]
+
 JDBC/
  ├── src/
  │    ├── JDBCdemo.java
