@@ -1,10 +1,14 @@
 JDBC
 
 ──────────────────────────────────────────
+
+
 [== OVERVIEW ==]
 Direct SQL execution from Java using the JDBC API. Provides connection handling, statement execution, CRUD operations, and scroll-oriented result navigation.
 
 ──────────────────────────────────────────
+
+
 [== FEATURES ==]
 ▣ CRUD operations
 ▣ Prepared statements
@@ -13,12 +17,14 @@ Direct SQL execution from Java using the JDBC API. Provides connection handling,
 ▣ Exception diagnostics
 
 ──────────────────────────────────────────
+
 [== REQUIREMENTS ==]
 ▣ Java 8+
 ▣ MySQL 8.x
 ▣ MySQL Connector/J
 
 ──────────────────────────────────────────
+
 [== SETUP ==]
 
 Install MySQL
@@ -32,6 +38,7 @@ Add MySQL Connector/J to classpath
 Compile and run Java sources
 
 ──────────────────────────────────────────
+
 [== CONNECTION TEMPLATE ==]
 
 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -43,6 +50,7 @@ Connection con = DriverManager.getConnection(
 
 
 ──────────────────────────────────────────
+
 [== BASIC QUERY ==]
 
 Statement st = con.createStatement();
@@ -55,6 +63,7 @@ while (rs.next()) {
 
 
 ──────────────────────────────────────────
+
 [== INSERT (PREPARED STATEMENT) ==]
 
 String q = "INSERT INTO students(id, stdname) VALUES (?, ?)";
@@ -65,6 +74,7 @@ ps.executeUpdate();
 
 
 ──────────────────────────────────────────
+
 [== UPDATE ==]
 
 String q = "UPDATE students SET stdname=? WHERE id=?";
@@ -75,6 +85,7 @@ ps.executeUpdate();
 
 
 ──────────────────────────────────────────
+
 [== SCROLL NAVIGATION ==]
 
 Statement st = con.createStatement(
@@ -90,12 +101,14 @@ rs.absolute(2);
 
 
 ──────────────────────────────────────────
+
 [== EXCEPTION NOTES ==]
 ▣ Type mismatch → SQLDataException
 ▣ Invalid table name → SQLSyntaxErrorException
 ▣ Driver missing → ClassNotFoundException
 
 ──────────────────────────────────────────
+
 [== DIRECTORY STRUCTURE ==]
 
 JDBC/
