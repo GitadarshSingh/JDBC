@@ -4,12 +4,14 @@ JDBC
 
 
 [== OVERVIEW ==]
+
 Direct SQL execution from Java using the JDBC API. Provides connection handling, statement execution, CRUD operations, and scroll-oriented result navigation.
 
 ──────────────────────────────────────────
 
 
 [== FEATURES ==]
+
 ▣ CRUD operations
 ▣ Prepared statements
 ▣ Scroll-insensitive and scroll-sensitive navigation
@@ -19,6 +21,7 @@ Direct SQL execution from Java using the JDBC API. Provides connection handling,
 ──────────────────────────────────────────
 
 [== REQUIREMENTS ==]
+
 ▣ Java 8+
 ▣ MySQL 8.x
 ▣ MySQL Connector/J
@@ -26,6 +29,7 @@ Direct SQL execution from Java using the JDBC API. Provides connection handling,
 ──────────────────────────────────────────
 
 [== SETUP ==]
+
 
 Install MySQL
 
@@ -41,6 +45,7 @@ Compile and run Java sources
 
 [== CONNECTION TEMPLATE ==]
 
+
 Class.forName("com.mysql.cj.jdbc.Driver");
 Connection con = DriverManager.getConnection(
     "jdbc:mysql://localhost:3306/demo",
@@ -52,6 +57,7 @@ Connection con = DriverManager.getConnection(
 ──────────────────────────────────────────
 
 [== BASIC QUERY ==]
+
 
 Statement st = con.createStatement();
 ResultSet rs = st.executeQuery("SELECT * FROM students");
@@ -66,6 +72,7 @@ while (rs.next()) {
 
 [== INSERT (PREPARED STATEMENT) ==]
 
+
 String q = "INSERT INTO students(id, stdname) VALUES (?, ?)";
 PreparedStatement ps = con.prepareStatement(q);
 ps.setInt(1, 1);
@@ -77,6 +84,7 @@ ps.executeUpdate();
 
 [== UPDATE ==]
 
+
 String q = "UPDATE students SET stdname=? WHERE id=?";
 PreparedStatement ps = con.prepareStatement(q);
 ps.setString(1, "NewName");
@@ -87,6 +95,7 @@ ps.executeUpdate();
 ──────────────────────────────────────────
 
 [== SCROLL NAVIGATION ==]
+
 
 Statement st = con.createStatement(
     ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -103,6 +112,7 @@ rs.absolute(2);
 ──────────────────────────────────────────
 
 [== EXCEPTION NOTES ==]
+
 ▣ Type mismatch → SQLDataException
 ▣ Invalid table name → SQLSyntaxErrorException
 ▣ Driver missing → ClassNotFoundException
@@ -110,6 +120,7 @@ rs.absolute(2);
 ──────────────────────────────────────────
 
 [== DIRECTORY STRUCTURE ==]
+
 
 JDBC/
  ├── src/
